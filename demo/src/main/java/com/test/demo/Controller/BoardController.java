@@ -38,11 +38,10 @@ public class BoardController {
 
 		model.addAttribute("list", list);   
 		model.addAttribute("pageNum", page.getPageNum());
-
 		model.addAttribute("startPageNum", page.getStartPageNum());
 		model.addAttribute("endPageNum", page.getEndPageNum());
-		System.out.println(page.getDisplayPost());
-		System.out.println(page.getPostNum());
+		model.addAttribute("prev", page.getPrev());
+		model.addAttribute("next", page.getNext());
 		return "board/list";
 	}
 	
@@ -80,6 +79,33 @@ public class BoardController {
 	public String delete(@RequestParam("bno") int bno) {
 		bs.delete(bno);
 		return "redirect:/board/list";
+	}
+	
+//	검색 후 리스트
+	@GetMapping("board/searchList")
+	public String searchList(Model model, @RequestParam("num") int num, 
+			@RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
+			   @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword ){
+		
+		PageVO pg = new PageVO();
+		pg.setNum(num);
+//		pg.setCount(bs.count());
+		pg.setCount(bs.searchCount(searchType, keyword));
+		
+//		List<BoardVO> list = null; 
+//		list = bs.getListP(pg.getDisplayPost(),pg.getPostNum());
+		List<BoardVO> list = bs.searchList(pg.getDisplayPost(), pg.getPostNum(), searchType, keyword);
+		
+
+		
+		model.addAttribute("pageNum", num);
+		model.addAttribute("page", pg);
+		model.addAttribute("list", list);
+		System.out.println(num);
+		System.out.println(pg.getStartPageNum());
+		System.out.println(pg.getEndPageNum());
+		
+		return "board/searchList";
 	}
 	
 

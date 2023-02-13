@@ -15,6 +15,7 @@ public class BoardService {
 	@Autowired
 	BoardMapper bm;
 	
+	
 //	전체조회 및 페이징
 	public List<BoardVO> getListP(int displayPost, int postNum ){
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
@@ -51,7 +52,32 @@ public class BoardService {
 		return bm.cnt(bno);
 	}
 	
+//	전체글 카운트
 	public int count() {
 		return bm.count();
+	}
+	
+
+	public List<BoardVO> searchList( int displayPost, int postNum, 
+			String searchType, String keyword){
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		 
+		 map.put("displayPost", displayPost);
+		 map.put("postNum", postNum);
+		 
+		 map.put("searchType", searchType);
+		 map.put("keyword", keyword);
+		
+		return bm.searchList(map);
+	}
+	
+//	검색 후 데이타 갯수
+	public int searchCount(String searchType, String keyword) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("searchType", searchType);
+		map.put("Keyword", keyword);
+		return bm.searchCount(map);
 	}
 }

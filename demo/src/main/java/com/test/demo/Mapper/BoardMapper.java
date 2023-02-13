@@ -49,4 +49,10 @@ public interface BoardMapper {
 	@Select("select count(bno) from board")
 	int count();
 	
+//	검색 후 리스트
+	List<BoardVO> searchList(HashMap<String, Object> map);
+	
+//	검색 후 게시글 갯수
+	int searchCount(HashMap<String, Object> map);
+
 }
