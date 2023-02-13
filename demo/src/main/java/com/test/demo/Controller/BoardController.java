@@ -1,5 +1,7 @@
 package com.test.demo.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,8 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.test.demo.Domain.BoardVO;
-import com.test.demo.Domain.Criteria;
-import com.test.demo.Domain.PageDTO;
+import com.test.demo.Domain.PageVO;
 import com.test.demo.Service.BoardService;
 
 @Controller
@@ -24,8 +25,24 @@ public class BoardController {
 	}
 //	게시판 이동
 	@GetMapping("board/list")
-	public String list(Model model) {
-		model.addAttribute("list",bs.getList());
+	public String list(@RequestParam("num") int num, Model model) {
+		
+		
+		PageVO page = new PageVO();
+		
+		page.setNum(num);
+		page.setCount(bs.count());
+
+		List<BoardVO> list = null; 
+		list = bs.getListP(page.getDisplayPost(),page.getPostNum());
+
+		model.addAttribute("list", list);   
+		model.addAttribute("pageNum", page.getPageNum());
+
+		model.addAttribute("startPageNum", page.getStartPageNum());
+		model.addAttribute("endPageNum", page.getEndPageNum());
+		System.out.println(page.getDisplayPost());
+		System.out.println(page.getPostNum());
 		return "board/list";
 	}
 	
@@ -65,10 +82,5 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-//	페이징
-	@GetMapping("board/listP")
-	public void list(Criteria cri, Model model) {
-		model.addAttribute("list",bs.getListP(cri));
-		model.addAttribute("pageMaker", new PageDTO(cri, 123));
-	}
+
 }

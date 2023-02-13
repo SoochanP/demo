@@ -9,6 +9,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <style>
+
+.box{
+	width: 100%;
+	height: 100px;
+}
+
 .goright{
 	display: flex;
 	justify-content: flex-end;		
@@ -58,6 +64,31 @@ a {
 					    </tr>
 					  </tbody>
 				</table>
+				 <!--페이징 시작  -->
+            <div class="box" style="display:flex; font-size:100px; justify-content: center;">
+                	<th:block
+                  th:with="start=${startPageNum}, end=${endPageNum}, num =${pageNum}">
+                	<ul style="list-style: none; ">
+                		<!-- 이전 버튼  -->
+						<li class="mx-1 my-2" style="float:left; font-size: 2rem;" th:if="${prev}">
+						<a style="color: #774DD3" th:href="@{/board/list(num= ${startPageNum}-1)}" th:text="prev">
+						</a></li>
+						
+						<!-- 숫자 버튼 -->
+						<th:block th:each="num : ${#numbers.sequence(start, end)}">
+						<li class="mx-2 my-2"style="float:left; font-size: 2rem;">
+							<a style="color: #774DD3" th:text=${num} th:href="@{/board/list(num = ${num})}"></a>
+						</li>						
+                		</th:block>
+                		
+                		<!-- 다음 버튼 -->
+						<li class="mx-1 my-2" style="float:left;font-size: 2rem" th:if="${next}">
+						<a style="color: #774DD3" th:href="@{/board/list(num = ${endPageNum}+1)}" th:text="next">
+						</a></li>	
+                	</ul>
+					</th:block>
+            </div>
+                <!--페이징 끝 -->
 				
 			<!--  <th:block th:if="${pageMaker!=1}">
 					<a th:href="'/board/list?pageNumber='+${pageNumber-1}" class = "btn btn-success btn-arraw-left">이전</a>
