@@ -5,9 +5,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class BoardVO {
-
-	private int Date;
+	private int bno;
+	private String title;
+	private String content;
+	private String id;
+	private String regdate;
+	private int readcnt;
+	private String etc;
+	private int del;
+	
 }
