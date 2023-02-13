@@ -16,5 +16,6 @@ public class BoardVO {
 	private int readcnt;
 	private String etc;
 	private int del;
+
 	
 }

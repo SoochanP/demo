@@ -10,11 +10,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
 <style>
 
-
-select{
-	width: 5rem;
-}
-
 .box{
 	width: 100%;
 	height: 100px;
@@ -32,6 +27,9 @@ a {
   color: inherit;
   text-decoration: none;
 }
+select{
+	width: 5rem;
+}
 </style>
 </head>
 <body>
@@ -45,20 +43,20 @@ a {
 				<div>
 				  <button  class="btn btn-outline-secondary mx-3 my-3" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">글 작성</button>
 				</div>
-				<form>
 				<div class=" mx-1 my-3">
 				 <select  class="form-select" aria-label="Default select example"  name="searchType">
-				      <option value="title">제목</option>
-			          <option value="content">내용</option>
-				      <option value="title_content">제목+내용</option>
-				      <option value="writer">작성자</option>
+				      <option th:attr="selected = ${searchType} == title ? true : false" value="title">제목</option>
+			          <option th:attr="selected = ${searchType} == content ? true : false"value="content">내용</option>
+				      <option th:attr="selected = ${searchType} == title_content ? true : false"value="title_content">제목+내용</option>
+				      <option th:attr="selected = ${searchType} == writer ? true : false"value="writer">작성자</option>
   				</select>
 				</div>
 				<div class="input-group mb-3 mt-3" style="width: 20rem;">
-				  <input type="text" name="keyword" class="form-control" placeholder="검색창" aria-label="Recipient's username" aria-describedby="button-addon2">
-				  <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
+				  <input type="text" name="keyword" class="form-control"
+				   placeholder="검색창" aria-label="Recipient's username"
+				    aria-describedby="button-addon2" th:value="${keyword}">
+				  <button class="btn btn-outline-secondary" type="button" id="searchBtn">검색</button>
 				</div>
-				</form>
 				</div>
 				<table class="table px-10">
 					  <thead>
@@ -81,23 +79,23 @@ a {
 				 <!--페이징 시작  -->
             <div class="box" style="display:flex; font-size:100px; justify-content: center;">
                 	<th:block
-                  th:with="start=${startPageNum}, end=${endPageNum}, num =${pageNum}">
+                  th:with="start=${page.startPageNum}, end=${page.endPageNum}, num =${pageNum}">
                 	<ul style="list-style: none; ">
                 		<!-- 이전 버튼  -->
-						<li class="mx-1 my-2" style="float:left; font-size: 2rem;" th:if="${prev}">
-						<a style="color: #000000" th:href="@{/board/list(num= ${startPageNum}-1)}" th:text="prev">
+						<li class="mx-1 my-2" style="float:left; font-size: 2rem;" th:if="${page.prev}">
+						<a style="color: #000000" th:href="@{/board/searchList(num= ${page.startPageNum}-1)}" th:text="prev">
 						</a></li>
 						
 						<!-- 숫자 버튼 -->
 						<th:block th:each="num : ${#numbers.sequence(start, end)}">
 						<li class="mx-2 my-2"style="float:left; font-size: 2rem;">
-							<a style="color: #000000" th:text=${num} th:href="@{/board/list(num = ${num})}"></a>
+							<a style="color: #000000" th:text=${pageNum} th:href="@{/board/searchList(num = ${num})}"></a>
 						</li>						
                 		</th:block>
                 		
                 		<!-- 다음 버튼 -->
-						<li class="mx-1 my-2" style="float:left;font-size: 2rem" th:if="${next}">
-						<a style="color: #000000" th:href="@{/board/list(num = ${endPageNum}+1)}" th:text="next">
+						<li class="mx-1 my-2" style="float:left;font-size: 2rem" th:if="${page.next}">
+						<a style="color: #000000" th:href="@{/board/searchList(num = ${page.endPageNum}+1)}" th:text="next">
 						</a></li>	
                 	</ul>
 					</th:block>
@@ -132,6 +130,20 @@ a {
   </div>
 </div>
 </form>
+<script>
+
+ document.getElementById("searchBtn").onclick = function () {
+    
+  let searchType = document.getElementsByName("searchType")[0].value;
+  let keyword =  document.getElementsByName("keyword")[0].value;
+  
+  location.href = "/board/searchList?num=1" + "&searchType=" + searchType + "&keyword=" + keyword;
+  
+  console.log(searchType)
+  console.log(keyword)
+ };
+ 
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
