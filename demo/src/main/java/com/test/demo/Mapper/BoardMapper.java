@@ -1,5 +1,6 @@
 package com.test.demo.Mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
@@ -8,7 +9,6 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.test.demo.Domain.BoardVO;
-import com.test.demo.Domain.Criteria;
 
 @Mapper
 public interface BoardMapper {
@@ -18,8 +18,8 @@ public interface BoardMapper {
 	List<BoardVO> getList();
 	
 //	전체조회-페이징
-	@Select("select * from board where del=0 order by bno desc limit 10")
-	List<BoardVO> getListP(Criteria cri);
+	@Select("select * from board where del=0 order by bno desc limit #{dNum}, #{pNum}")
+	List<BoardVO> getListP(HashMap<String, Integer> map);
 
 //	페이징처리
 	@Select("select * from board where del=0 order by bno desc limit #{pageNum},")
@@ -45,5 +45,8 @@ public interface BoardMapper {
 	@Update("update board set readcnt=readcnt+1 where #{bno}")
 	int cnt(int bno);
 	
+//	전체글 카운트
+	@Select("select count(bno) from board")
+	int count();
 	
 }
