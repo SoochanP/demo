@@ -5,45 +5,38 @@
 	<!-- 검색 조건 맞는 글 가져오기  -->
 	<select id="searchList" parameterType="hashMap" resultType="com.test.demo.Domain.BoardVO">
 	select * 
- 	from board
-	 <if test='searchType.equals("title")'>
- 		 WHERE title LIKE concat('%', #{keyword}, '%')
+ 	from scott.board
+ 	
+	<if test='searchType.equals("title")'>
+ 		 WHERE title LIKE concat('%', #{keyword}, '%') and del=0
  	</if>
  
  	<if test='searchType.equals("content")'>
-  		WHERE content LIKE concat('%', #{keyword}, '%')
- 		</if>
- 
-	 <if test='searchType.equals("title_content")'>
-	  	WHERE title LIKE concat('%', #{keyword}, '%') 
-	   		or content LIKE concat('%', #{keyword}, '%')
+  		WHERE content LIKE concat('%', #{keyword}, '%') and del=0
+ 	</if>
+ 	
+	 <if test='searchType.equals("id")'>
+	 	 WHERE id LIKE concat('%', #{keyword}, '%') and del=0 
 	 </if>
 	 
-	 <if test='searchType.equals("writer")'>
-	 	 WHERE writer LIKE concat('%', #{keyword}, '%') 
-	 </if>
 	 	order by bno desc 
-		 limit #{displayPost}, #{postNum}
+		limit #{displayPost}, #{postNum}
 	</select>
 	
 	<!-- 게시물 총 개수 + 검색 적용 --> 
 	<select id="searchCount" parameterType="hashMap" resultType="int">
-	 select count(bno) from board  
- 	<if test='searchType.equals("title")'>
- 		 WHERE title LIKE concat('%', #{keyword}, '%')
+	 	select count(bno) 
+ 		from scott.board
+	<if test='searchType.equals("title")'>
+ 		 WHERE title LIKE concat('%', #{keyword}, '%') and del=0
  	</if>
  
  	<if test='searchType.equals("content")'>
-  		WHERE content LIKE concat('%', #{keyword}, '%')
- 		</if>
- 
-	 <if test='searchType.equals("title_content")'>
-	  	WHERE title LIKE concat('%', #{keyword}, '%') 
-	   		or content LIKE concat('%', #{keyword}, '%')
+  		WHERE content LIKE concat('%', #{keyword}, '%') and del=0
+ 	</if>
+ 	
+	 <if test='searchType.equals("id")'>
+	 	 WHERE id LIKE concat('%', #{keyword}, '%') and del=0 
 	 </if>
-	 
-	 <if test='searchType.equals("writer")'>
-	 	 WHERE writer LIKE concat('%', #{keyword}, '%') 
-	 </if>
-	</select>
+		</select>
 </mapper>

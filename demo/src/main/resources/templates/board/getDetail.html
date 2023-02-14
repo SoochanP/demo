@@ -1,87 +1,174 @@
 <!DOCTYPE html>
-<html lang ="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>메인 화면</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
-<style>
-.scfont{
-	font-family: 'Nanum Pen Script', cursive;
-  font-size: 2rem;
-}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>메인 화면</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+	<style>
+		.scfont {
+			font-family: 'Nanum Pen Script', cursive;
+			font-size: 2rem;
+		}
 
+		body {
+			font-family: 'Nanum Pen Script', cursive;
+			font-size: 2rem;
+		}
 
-body{
-  font-family: 'Nanum Pen Script', cursive;
-  font-size: 2rem;
-}
-.goright{
-	display: flex;
-	justify-content: flex-end;		
-}
-  textarea {
-	width: 100%;
-	height: 5em;
-    resize: none;
-	font-size: 2rem;
+		.goright {
+			display: flex;
+			justify-content: flex-end;
+		}
 
-}
-.back{
-	background-image: url('https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__340.jpg');
-	background-repeat:no-repeat;
-  	background-size:cover;
-  	margin: 0px;
-	color: aliceblue;
-	width: 100%;
-  	height: 900px;
-  	font-family: 'Nanum Pen Script', cursive;
- 	font-size: 2rem;
-}
-button{
-	background-color:#ffffff; 
-	border-color: #6610f2;
-	border-radius: 10px;
-	width: 70px;
-}
-button:hover {
-	background-color: #6610f2;
-	color: #ffffff;
-	border-radius: 10px; 
-}
+		textarea {
+			width: 100%;
+			height: 5em;
+			resize: none;
+			font-size: 2rem;
 
-</style>
+		}
+
+		.back {
+			background-image: url('https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__340.jpg');
+			background-repeat: no-repeat;
+			background-size: cover;
+			margin: 0px;
+			color: aliceblue;
+			width: 100%;
+			height: 100%;
+			font-family: 'Nanum Pen Script', cursive;
+			font-size: 2rem;
+		}
+
+		button {
+			background-color: #ffffff;
+			border-color: #6610f2;
+			color: #6610f2;
+			border-radius: 10px;
+			width: 70px;
+		}
+
+		button:hover {
+			background-color: #6610f2;
+			color: #ffffff;
+			border-radius: 10px;
+		}
+		
+		.illusion{
+			background-color: transparent;
+			border-color: transparent;
+			color:#ffffff;
+			height: 5rem;
+		}
+	</style>
 </head>
+
 <body>
-<!-- 네비 -->
+	<!-- 네비 -->
 	<th:block th:include="/include/nav.html"></th:block>
-	
-<!-- 메인 -->
+
+	<!-- 메인 -->
 	<div class="back">
 		<div class="container-xxl mt-3">
 			<main class="bd- main order-1">
 				<div class="mt-3 mx-3 text-center">
-				<span class="fs-1" th:text=${item.title}>Title</span>
+					<span class="fs-1" th:text=${item.title}>Title</span>
 				</div>
 				<div class="fs-1 my-3 mx-3 text-end">
-				<span th:text=${item.id}>작성자</span> 
+					<span th:text=${item.id}>작성자</span>
 				</div>
 				<div class="my-2 mx-3">
 					<fieldset>
 						<legend class="fs-1">content</legend>
-						<textarea class="rounded-pill text-center" th:text="${item.content}" readonly></textarea>
-					  </fieldset>
+						<textarea class="rounded-pill text-center" th:text="${item.content}" readonly="readonly"></textarea>
+					</fieldset>
 				</div>
-				<div class="my-2 mx-3 rows text-center">
-					  	<button type="button" id="update" th:onclick="|location.href='@{/board/update?(bno=${item.bno})}'|">수정</button>
-					  	<button type="button" id="delete" th:onclick="|location.href='@{/board/delete?(bno=${item.bno})}'|">삭제</button>
+				<div class="my-2 mx-3 rows text-end">
+					<button type="button" id="update"
+						th:onclick="|location.href='@{/board/update?(bno=${item.bno})}'|">수정</button>
+					<button type="button" id="delete"
+						th:onclick="|location.href='@{/board/delete?(bno=${item.bno})}'|">삭제</button>
 				</div>
-			</main>
-		  </div>
+				<div>
+					<hr style="border: 1px solid; color: #ffffff;">
+					<div>
+						<span>댓글(</span><span>[[${cnt}]]</span>)<hr>
+						<div th:each="re : ${reply}">
+							작성자 : <span>[[${re.id}]]</span> /
+							등록일 : <span>[[${re.redate}]]</span><br>
+							내용 <textarea th:id="|update?${re.reno}|" class="illusion" name="upRememo" readonly="readonly">[[${re.rememo}]]</textarea><br>
+							<div style="display: flex; justify-content: end;">
+							<button type="button" th:onclick="updateBtn([[${re.reno}]])" style="font-size: 1.5rem; width: max-content;">수정</button>
+							<button type="button" th:onclick="deleteBtn([[${re.reno}]])" style="font-size: 1.3rem; width: max-content;">삭제</button>
+							</div>
+							<hr>
+						</div>
+						<span>작성자</span>
+						<input class="form-control" style="width:10rem;" type="text" name="id">
+						댓글내용
+						<textarea class="form-control" aria-label="With textarea" name="rememo"></textarea>
+						<div style="margin-top: 1rem; display: flex; justify-content: end;">
+							<button type="button" onclick="submitBtn()" style="width: max-content;">댓글등록</button>
+						</div>
+					</div>
+					<div id="replyList">
+						
+					</div>
+		</div>
+		</main>
 	</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+		crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+	const urlParams = new URL(location.href).searchParams;
+	
+	function submitBtn(){
+		
+		const bno = urlParams.get('bno');
+		console.log(bno)
+		const id = document.getElementsByName('id')[0].value
+		const rememo = document.getElementsByName('rememo')[0].value
+
+		const reply = {
+			bno : bno,
+			id : id,
+			rememo : rememo
+		}
+		const URL = "/board/api/register"
+		fetch(URL,{
+			method : "POST",
+            body : JSON.stringify(reply),
+            headers : {
+                "Content-Type": "application/json"
+            },
+		}).then(Response=>{
+			if(Response.ok){
+				alert('등록완료')
+				id.value="";
+				rememo.value="";
+				window.location.reload();
+			}else{
+				alert('등록실패')
+				window.location.reload();
+			}
+		})
+	}
+	
+	function updateBtn(num){
+		
+		const change = document.getElementById('update?num');
+		change.setAttribute("readonly","none");
+		
+	}
+</script>
 </body>
+
 </html>

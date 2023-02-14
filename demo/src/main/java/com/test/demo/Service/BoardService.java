@@ -58,6 +58,7 @@ public class BoardService {
 	}
 	
 
+//	페이징 + 검색 
 	public List<BoardVO> searchList( int displayPost, int postNum, 
 			String searchType, String keyword){
 		
@@ -77,7 +78,8 @@ public class BoardService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("searchType", searchType);
-		map.put("Keyword", keyword);
+		map.put("keyword", keyword);
+		
 		return bm.searchCount(map);
 	}
 }

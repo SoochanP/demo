@@ -20,10 +20,6 @@ public interface BoardMapper {
 //	전체조회-페이징
 	@Select("select * from board where del=0 order by bno desc limit #{dNum}, #{pNum}")
 	List<BoardVO> getListP(HashMap<String, Integer> map);
-
-//	페이징처리
-	@Select("select * from board where del=0 order by bno desc limit #{pageNum},")
-	List<BoardVO> getListpage();
 	
 //	선택조회
 	@Select("select * from board where bno = #{bno} and del=0")
@@ -46,7 +42,7 @@ public interface BoardMapper {
 	int cnt(int bno);
 	
 //	전체글 카운트
-	@Select("select count(bno) from board")
+	@Select("select count(bno) from board where del=0")
 	int count();
 	
 //	검색 후 리스트
@@ -54,5 +50,4 @@ public interface BoardMapper {
 	
 //	검색 후 게시글 갯수
 	int searchCount(HashMap<String, Object> map);
-
 }

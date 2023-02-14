@@ -11,13 +11,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.test.demo.Domain.BoardVO;
 import com.test.demo.Domain.PageVO;
+import com.test.demo.Domain.ReplyVO;
 import com.test.demo.Service.BoardService;
+import com.test.demo.Service.replyService;
 
 @Controller
 public class BoardController {
 	
 	@Autowired
 	BoardService bs;
+	
+	@Autowired
+	replyService rs;
+	
 //	메인
 	@GetMapping("/")
 	public String main() {
@@ -56,9 +62,19 @@ public class BoardController {
 //	선택조회 이동
 	@GetMapping("board/getDetail")
 	public String getDetail(@RequestParam("bno") int bno, Model model ) {
-//		조회수 증가
+
+		//조회수 증가
 		bs.cnt(bno);
 		model.addAttribute("item", bs.getDetail(bno));
+		
+		//댓글 리스트 
+		List<ReplyVO> list = rs.selectAll(bno);
+		model.addAttribute("reply", list);
+		
+		//댓글 갯수
+		int cnt = rs.count(bno);
+		model.addAttribute("cnt", cnt);
+		
 		return "board/getDetail";
 	}
 	
@@ -81,32 +97,27 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-//	검색 후 리스트
+//	페이징 + 검색  리스트
 	@GetMapping("board/searchList")
 	public String searchList(Model model, @RequestParam("num") int num, 
 			@RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
 			   @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword ){
 		
 		PageVO pg = new PageVO();
+
+//		pageVO setting
 		pg.setNum(num);
-//		pg.setCount(bs.count());
 		pg.setCount(bs.searchCount(searchType, keyword));
+		pg.setKeyword(keyword);
+		pg.setSearchType(searchType);
 		
-//		List<BoardVO> list = null; 
-//		list = bs.getListP(pg.getDisplayPost(),pg.getPostNum());
+//		리스트 
 		List<BoardVO> list = bs.searchList(pg.getDisplayPost(), pg.getPostNum(), searchType, keyword);
 		
-
-		
-		model.addAttribute("pageNum", num);
+//		던지기
 		model.addAttribute("page", pg);
 		model.addAttribute("list", list);
-		System.out.println(num);
-		System.out.println(pg.getStartPageNum());
-		System.out.println(pg.getEndPageNum());
 		
 		return "board/searchList";
 	}
-	
-
 }
