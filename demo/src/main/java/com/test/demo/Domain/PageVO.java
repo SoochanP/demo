@@ -1,7 +1,5 @@
 package com.test.demo.Domain;
 
-import lombok.Data;
-import lombok.ToString;
 
 public class PageVO {
 	// 현재 페이지 번호
@@ -32,24 +30,10 @@ public class PageVO {
 	private boolean prev;
 	private boolean next;
 
+	// 검색 조건
 	private String keyword;
 	private String searchType;
 
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
-
-	public String getSearchType() {
-		return searchType;
-	}
-
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
-	}
 
 	public void setNum(int num) {
 		this.num = num;
@@ -96,6 +80,22 @@ public class PageVO {
 		return next;
 	}
 
+	public String getKeyword() {
+		return keyword;
+	}
+	
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	
+	public String getSearchType() {
+		return searchType;
+	}
+	
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	
 	private void dataCalc() {
 
 		// 마지막 번호
@@ -103,12 +103,20 @@ public class PageVO {
 
 		// 시작 번호
 		startPageNum = endPageNum - (pageNumCnt - 1);
-
+		
+		// 오류 방지
+		if(count == 0) {
+			count=1;
+		}
 		// 마지막 번호 재계산
 		int endPageNum_tmp = (int) (Math.ceil((double) count / (double) pageNumCnt));
 
 		if (endPageNum > endPageNum_tmp) {
 			endPageNum = endPageNum_tmp;
+		}
+		
+		if(endPageNum == 0) {
+			endPageNum=10;
 		}
 
 		prev = startPageNum == 1 ? false : true;
@@ -117,4 +125,5 @@ public class PageVO {
 		displayPost = (num - 1) * postNum;
 
 	}
+	
 }

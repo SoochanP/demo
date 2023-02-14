@@ -81,29 +81,26 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-//	검색 후 리스트
+//	페이징 + 검색  리스트
 	@GetMapping("board/searchList")
 	public String searchList(Model model, @RequestParam("num") int num, 
 			@RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
 			   @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword ){
 		
 		PageVO pg = new PageVO();
+
+//		pageVO setting
 		pg.setNum(num);
-//		pg.setCount(bs.count());
 		pg.setCount(bs.searchCount(searchType, keyword));
+		pg.setKeyword(keyword);
+		pg.setSearchType(searchType);
 		
-//		List<BoardVO> list = null; 
-//		list = bs.getListP(pg.getDisplayPost(),pg.getPostNum());
+//		리스트 
 		List<BoardVO> list = bs.searchList(pg.getDisplayPost(), pg.getPostNum(), searchType, keyword);
 		
-
-		
-		model.addAttribute("pageNum", num);
+//		던지기
 		model.addAttribute("page", pg);
 		model.addAttribute("list", list);
-		System.out.println(num);
-		System.out.println(pg.getStartPageNum());
-		System.out.println(pg.getEndPageNum());
 		
 		return "board/searchList";
 	}
