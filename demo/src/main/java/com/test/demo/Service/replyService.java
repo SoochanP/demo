@@ -33,4 +33,10 @@ public class replyService {
 	public int update(ReplyVO replyVO) {
 		return rm.update(replyVO);
 	}
+	
+//	댓글 삭제
+	
+	public int delete(ReplyVO replyVO) {
+		return rm.delete(replyVO);
+	}
 }

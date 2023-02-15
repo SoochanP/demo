@@ -2,7 +2,9 @@ package com.test.demo.Domain;
 
 import java.sql.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 //Columns:
@@ -14,6 +16,8 @@ import lombok.Data;
 //del int
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReplyVO {
 
 	private int reno;

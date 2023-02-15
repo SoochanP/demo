@@ -32,13 +32,16 @@ public interface ReplyMapper {
 //	댓글 수정
 	@Update("UPDATE scott.board_reply"
 			+ " SET "
-			+ "reno = #{reno},"
-			+ "rewriter = #{rewriter},"
-			+ "rememo = #{rememo},"
-			+ "redate = now(),"
-			+ "bno = #{bno},"
-			+ "del = 0"
-			+ "WHERE reno = #{reno};")
-	int update(ReplyVO replyVO);
+			+ "rememo = #{replyVO.rememo}, "
+			+ "redate = now() "
+			+ "WHERE reno = #{replyVO.reno} ")
+	int update(@Param("replyVO") ReplyVO replyVO);
+	
+//	댓글 수정
+	@Update("UPDATE scott.board_reply"
+			+ " SET "
+			+ "del = 1 "
+			+ "WHERE reno = #{replyVO.reno} ")
+	int delete(@Param("replyVO") ReplyVO replyVO);
 	
 }
