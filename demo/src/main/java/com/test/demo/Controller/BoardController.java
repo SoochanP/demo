@@ -31,7 +31,7 @@ public class BoardController {
 	}
 //	게시판 이동
 	@GetMapping("board/list")
-	public String list(@RequestParam("num") int num, Model model) {
+	public String list(@RequestParam(value ="num",required = false, defaultValue = "1") int num, Model model) {
 		
 		
 		PageVO page = new PageVO();
@@ -99,7 +99,7 @@ public class BoardController {
 	
 //	페이징 + 검색  리스트
 	@GetMapping("board/searchList")
-	public String searchList(Model model, @RequestParam("num") int num, 
+	public String searchList(Model model, @RequestParam(value="num",required = false, defaultValue = "1") int num, 
 			@RequestParam(value = "searchType",required = false, defaultValue = "title") String searchType,
 			   @RequestParam(value = "keyword",required = false, defaultValue = "") String keyword ){
 		
