@@ -10,7 +10,14 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<style>
+.scfont{
+	font-family: 'Nanum Pen Script', cursive;
+	  font-size: 2rem;
+}
+	
 	
 	
 .filebox {display:inline-block; margin-right: 10px;}
@@ -28,24 +35,13 @@
   border: 1px solid #ebebeb;
   border-bottom-color: #e2e2e2;
   border-radius: .25em;
-
 }
 
-.filebox input[type="file"] {  /* 파일 필드 숨기기 */
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip:rect(0,0,0,0);
-  border: 0;
-}
 .around{
 	display: flex;
 	justify-content: space-around;
 }
-	</style>
+</style>
 </head>
 	
 <body>
@@ -56,28 +52,28 @@
 		<h1>파일 업로드</h1>
 		<span>파일 업로드를 해보는 연습 페이지</span><br><br>
 	
-        <form action="/upload" method="post" enctype="multipart/form-data">
      	  <div class="around">
      	  <div class="filebox">
            <h4>단일 파일 업로드</h4>
+           	<form action="/upload_ok" method="post" enctype="multipart/form-data">
             	<label for="ex_file">업로드</label> 
            		<input id="ex_file" class="btn btn-outline-light" type="file" name="file"><br><br>
+           		<input class="btn btn-outline-light" style="width: 5rem; height: 3rem; float: right;" type="submit" value="전송">
+           	</form>
      	  </div>
+     	  
            		
 		<div class="filebox">
            <h4>다중 파일 업로드</h4>
+			<form action="/upload_ok2" method="post" enctype="multipart/form-data">
                	<label for="ex_mFile">업로드</label> 
            		<input id="ex_mFile" class="btn btn-outline-light" type="file" multiple="multiple" name="files"><br><br>
-		</div>                   	
-			<div style="display: flex; align-items: flex-end;">
-	   		<input class="btn btn-outline-light" style="width: 5rem; height: 3rem;" type="submit"/>
-			</div>
-     	 </div>
-	</form>
+				<input class="btn btn-outline-light" style="width: 5rem; height: 3rem; float: right;" type="submit" value="전송">
+           	</form>
+		</div>
+		</div>
 	</div>
-
-
-
+			
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
 		crossorigin="anonymous"></script>

@@ -1,22 +1,16 @@
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+package com.test.demo.Domain;
 
-@Data
+
+import org.springframework.web.multipart.MultipartFile;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
 public class FileVO {
-    
-    private Long id;
-    
-    private String orgNm;
-    
-    private String savedNm;
-    
-    private String savedPath;
-
-    public FileVO(Long id, String orgNm, String savedNm, String savedPath) {
-        this.id = id;
-        this.orgNm = orgNm;
-        this.savedNm = savedNm;
-        this.savedPath = savedPath;
-    }
+	private String nmae;
+	private MultipartFile file;
 }
