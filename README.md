@@ -1,4 +1,15 @@
-#스프링 부트 게시판 
 
-Spring boot,java, gradle, mySQL, thymeleaf, mybatis, fetch, bootstrap v5.0 사용하여 
-검색, 페이징 , 댓글, 파일 업로드까지 구현하였습니다.
+# 스프링부트 이용한 검색+페이징+댓글 게시판, 다중 파일업로드
+
+
+## 프로젝트 정보
+  Springboot
+  thymeleaf
+  mysql
+  mybatis
+  javascript
+
+
+## 개요
+  스프링부트를 이용한 간단한 CRUD 및 비동기방식 채택하여 게시판 구성
+  
